@@ -62,4 +62,9 @@ class AccountController extends Controller
     public function profile() {
         return view('account.profile');
     }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('account.login');
+    }
 }
