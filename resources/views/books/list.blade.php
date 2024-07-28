@@ -68,7 +68,7 @@
                                                     @if($book->status == 1) 
                                                         <span class="text-success">Active</span>
                                                     @else
-                                                        <span class="text-success">Active</span>
+                                                        <span class="text-danger">Block</span>
                                                     @endif 
                                                 </td>
                                                 <td>
