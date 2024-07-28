@@ -27,7 +27,9 @@ class HomeController extends Controller
     // This method will show book detail page 
     public function detail($id) {
 
-        $book = Book::findOrFail($id);
+        $book = Book::with(['reviews.user', 'reviews' => function($query){
+            $query->where('status', 1);
+        }])->findOrFail($id);
 
         if($book->status == "0") {
             abort(404);
