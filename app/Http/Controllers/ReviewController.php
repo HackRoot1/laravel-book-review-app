@@ -47,4 +47,28 @@ class ReviewController extends Controller
         session()->flash('success', 'Review updated successfully.');
         return redirect()->route('account.reviews');
     }
+
+
+    // This method will delete review from database.
+    public function delete(Request $request) {
+
+        $id = $request->id;
+
+        $review = Review::find($id);
+
+        if($review == null) {
+            session()->flash('error', 'Review nor found');
+            return response()->json([
+                'status' => false, 
+                'message' => 'Review not found'
+            ]);
+        } else {
+            $review->delete();
+            session()->flash('success', 'Review deleted successfully.');
+            return response()->json([
+                'status' => true, 
+                'message' => 'Review deleted successfully.'
+            ]);
+        }
+    }
 }

@@ -57,7 +57,7 @@
                                         <td>
                                             <a href="{{ route('account.reviews.edit', $review->id) }}" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                            <a href="#" onclick="deleteReview({{ $review->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach 
@@ -74,4 +74,29 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+@section('script')
+
+<script>
+    function deleteReview(id) {
+
+        if(confirm("Are you sure you want to delete review?")) {
+            $.ajax({
+                url: '{{ route("account.reviews.delete") }}',
+                type: 'delete',
+                data: {id:id},
+                headers: {
+                    'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    window.location.href = '{{ route("account.reviews") }}';
+                }
+            });
+        }
+
+    }
+</script>
+
 @endsection
